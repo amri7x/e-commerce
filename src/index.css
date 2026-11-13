@@ -1,2 +1,19 @@
 @import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *))
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+    color-scheme: light;
+    --app-bg: white;
+    --app-text: black;
+}
+
+.dark{
+    color-scheme: dark;
+    --app-bg: black;
+    --app-text: white;
+}
+
+@theme inline {
+    --color-app-bg: var(--app-bg);
+    --color-app-text: var(--app-text);
+}
