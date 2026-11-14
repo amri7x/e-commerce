@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router"
 import { Layout } from "./components/Layout"
+import { productsLoader } from "./loaders/productsLoader"
 
 const router = createBrowserRouter([
     {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "products",
+                loader: productsLoader,
                 lazy: async () => {
                     const { Products } = await import("./pages/Products")
                     return { Component: Products }
