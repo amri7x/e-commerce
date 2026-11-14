@@ -1,1 +1,1 @@
-export const Products = () => <></>
+export const Products = () => <><h1>This is Products Page</h1></>
