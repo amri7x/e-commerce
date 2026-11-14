@@ -1,10 +1,34 @@
-import { useTheme } from "./ThemeProvider"
+import { createBrowserRouter, RouterProvider } from "react-router"
+import { Layout } from "./components/Layout"
+import { Products } from "./pages/Products"
+
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Layout />,
+        children: [
+            {
+                index: true,
+                lazy: async () => {
+                    const { Home } = await import("./pages/Home")
+                    return { Component: Home }
+                }
+            },
+            {
+                path: "products",
+                lazy: async () => {
+                    const { Products } = await import("./pages/Products")
+                    return { Component: Products }
+                }
+            }
+        ]
+    }
+])
 
 export const App = () => {
-    const { theme, toggleTheme } = useTheme()
     return(
-        <main className="bg-app-bg">
-            <button onClick={toggleTheme}>{theme === 'dark' ? 'Dark' : 'Light'} Mode</button>
-            <h1 className="text-app-text">Test Theme</h1>
-        </main>
+        <RouterProvider router={router}>
+            
+        </RouterProvider>
 )}
