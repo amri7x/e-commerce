@@ -1,11 +1,21 @@
-import { Header } from "./Header";
-import { Footer } from "./Footer";
-import { Outlet } from "react-router";
+import { Header } from "./Header"
+import { Footer } from "./Footer"
+import { Outlet, useNavigation } from "react-router"
+import { ProductsSkeleton } from "./ProductsSkeleton"
 
-export const Layout = () => (
-    <main>
+export const Layout = () => {
+    const navigation = useNavigation()
+    const isProductsLoading = 
+        navigation.state === "loading" &&
+        navigation.location?.pathname.startsWith("/products")
+    return(
+        <>
         <Header />
-        <Outlet />
+        {isProductsLoading
+            ? <ProductsSkeleton />
+            : <Outlet />
+        }
         <Footer />
-    </main>
-)
+        </>
+    )
+}

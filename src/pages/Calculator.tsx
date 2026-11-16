@@ -1,0 +1,1 @@
+export const Calculator = () => <h1 className="align-center">This is Calculator Pages</h1>
