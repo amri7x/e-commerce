@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router"
+import { useLoaderData, NavLink } from "react-router"
 import { productsLoader } from "../loaders/productsLoader"
 
 export const Products = () => {
@@ -9,11 +9,11 @@ export const Products = () => {
             {products.length === 0
                 ? <p>Data Products not found</p>
                 : products.map(product => (
-                    <div key={product.id}>
+                    <NavLink to={`${product.id}`} key={product.id}>
                         <p>{product.title}</p>
                         <img src={product.images[0]} />
                         <p>{product.price}</p>
-                    </div>
+                    </NavLink>
                 ))
             }
         </main>
