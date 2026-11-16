@@ -18,6 +18,17 @@ const router = createBrowserRouter([
             {
                 path: "products",
                 loader: productsLoader,
+                shouldRevalidate: ({
+                    currentUrl,
+                    nextUrl,
+                    defaultShouldRevalidate,
+                }) => {
+                    const onlySearchChanged =
+                        currentUrl.pathname === nextUrl.pathname &&
+                        currentUrl.search !== nextUrl.search
+
+                    return onlySearchChanged ? false : defaultShouldRevalidate
+                },
                 ErrorBoundary: ErrorBoundary,
                 lazy: async () => {
                     const { Products } = await import("./pages/Products")
