@@ -1,18 +1,19 @@
-import type { LoaderFunctionArgs } from "react-router";
-import type { Products } from "../types/products";
+import type { LoaderFunctionArgs } from "react-router"
+import type { Products } from "../types/products"
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL
 
 export const productsLoader = async ({request}: LoaderFunctionArgs): Promise<Products[]> => {
     const response = await fetch(API_URL, { signal: request.signal })
 
-    if(!response.ok)
-        throw new Response("Failed to load data products", {
+    if(!response.ok){
+        throw new Response("Failed to load products data", {
             status: response.status,
             statusText: response.statusText
         })
-    
+    }
+
     const data = await response.json()
 
-    return data as Products[]
+    return data.products as Products[]
 }
