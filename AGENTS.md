@@ -38,3 +38,39 @@ No automated test framework is configured. For changes, at minimum run linting a
 The repository currently has only an initial commit, so no established commit convention exists. Use concise imperative subjects, such as `Add product card layout` or `Fix cart total rounding`. Keep commits focused.
 
 Pull requests should explain the user-visible change, note validation performed, link any relevant issue, and include screenshots or a short recording for UI changes. Call out new environment variables, dependencies, or follow-up work explicitly.
+
+# MORA — Codex Development Rules
+
+## Project Context
+- Before starting, read docs/MORA_PROJECT_ROADMAP.md.
+- Follow the latest verified project progress.
+- Do not assume planned features are completed.
+- Prioritize frontend development with React, TypeScript,
+  React Router, Tailwind CSS, and Zod.
+
+## Learning Protocol
+- The developer is learning to code independently.
+- Act as a mentor, not only a code generator.
+- Explain syntax, parameters, return types, and execution flow.
+- Prefer hints before complete solutions when learning.
+- Explain why a solution was selected.
+- Provide small independent coding exercises when useful.
+
+## Development Rules
+- Inspect existing code before making changes.
+- Preserve existing functionality.
+- Follow the current repository architecture.
+- Do not modify unrelated files.
+- Do not commit, push, or merge without approval.
+
+## Verification
+- Run relevant tests, lint, and build when available.
+- Report actual results, including failures.
+- Never claim a feature is complete without evidence.
+
+## Roadmap Updates
+- Update docs/MORA_PROJECT_ROADMAP.md after meaningful progress.
+- Record the date, completed work, files changed, and next task.
+- Record important syntax and concepts learned.
+- Distinguish completed, ongoing, and planned work.
+- Never invent test results or completed features.
