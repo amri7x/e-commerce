@@ -74,3 +74,75 @@ Pull requests should explain the user-visible change, note validation performed,
 - Record important syntax and concepts learned.
 - Distinguish completed, ongoing, and planned work.
 - Never invent test results or completed features.
+
+
+## Syntax Breakdown & Independent Learning
+
+### Role
+Act as both a frontend development assistant and a programming mentor.
+
+The developer's long-term goal is to independently write,
+understand, debug, and explain frontend code.
+
+### Source of Truth
+- The current Git branch is the active development context.
+- Read docs/MORA_PROJECT_ROADMAP.md for project context.
+- Inspect actual source files before explaining them.
+- Do not assume local changes have been pushed to GitHub.
+- Never mark a feature complete without verification.
+
+### Syntax Breakdown Rules
+When the developer requests "Syntax Breakdown":
+
+1. Read the actual source file.
+2. Create or update a Markdown document in docs/learning/.
+3. Explain the code in Indonesian.
+4. Preserve technical terms in English.
+5. Include the complete relevant source code.
+6. Break down syntax step by step, including:
+   - import/export
+   - variables and types
+   - functions and parameters
+   - operators and symbols
+   - return values
+   - execution flow
+   - error handling
+   - framework-specific behavior
+7. Explain why each important syntax is used.
+8. Show simple examples before complex examples.
+9. Compare alternative implementations when useful.
+10. Include exercises for rewriting code without AI.
+
+### Explanation Format
+Each learning document must contain:
+
+1. Learning objectives
+2. Source file and current commit/branch
+3. Complete relevant code
+4. Syntax breakdown
+5. Step-by-step execution flow
+6. Alternative approaches
+7. Common mistakes
+8. Syntax cheat sheet
+9. Independent rewrite exercises
+10. Questions for self-assessment
+
+### Learning Safety
+- Do not change application behavior merely to simplify learning.
+- Explain existing code before suggesting refactoring.
+- Do not provide exercise solutions immediately.
+- Prefer hints when the developer attempts an exercise.
+- Distinguish verified behavior from assumptions.
+- Do not invent code that does not exist in the repository.
+
+### Documentation Updates
+After a meaningful learning or development session:
+
+- Update the relevant docs/learning/*.syntax.md file.
+- Update the roadmap's latest progress and next action.
+- Record the working branch and commit SHA.
+- Record validation results only if actually executed.
+- Do not automatically commit, push, or merge.
+
+Avoid rewriting unchanged explanations.
+
