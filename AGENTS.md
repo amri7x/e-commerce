@@ -146,3 +146,30 @@ After a meaningful learning or development session:
 
 Avoid rewriting unchanged explanations.
 
+
+## Shared Learning Protocol — ChatGPT & Codex
+
+The canonical Syntax Breakdown rules are defined in:
+docs/MORA_PROJECT_ROADMAP.md, Section 6.
+
+These rules apply equally to ChatGPT and Codex.
+
+Two working modes:
+
+- Development Mode:
+  Focus on implementation, debugging, and verification.
+  Keep explanations concise to conserve coding context.
+
+- Learning Mode:
+  Provide a complete Syntax Breakdown in Indonesian,
+  with examples, execution flow, alternatives, and
+  independent rewrite exercises.
+
+Use the current branch and source commit as references.
+
+Do not automatically generate lengthy learning documents
+for every code change. Generate them when requested.
+
+The GitHub repository is the canonical shared source.
+Do not assume local, uncommitted changes are available
+to ChatGPT on another device.
