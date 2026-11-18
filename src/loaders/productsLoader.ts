@@ -39,7 +39,7 @@ export const productsLoader = async ({
   if (!result.success) {
     throw invalidApiResponse()
   }
-
+  
   return result.data.products
 }
 

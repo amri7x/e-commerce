@@ -66,7 +66,13 @@ export const Products = () => {
       ) : (
         <section className="grid grid-cols-1 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {visibleProducts.map((product) => (
-            <NavLink to={`${product.id}`} key={product.id}>
+            <NavLink
+              to={{
+                pathname: `${product.id}`,
+                search: searchParams.toString()
+              }}
+              key={product.id}
+              >
               <p>{product.title}</p>
               <img src={product.images[0]} alt={product.title} />
               <p>{product.price}</p>
