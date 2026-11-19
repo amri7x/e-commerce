@@ -7,12 +7,12 @@
 | Metadata | Nilai |
 |---|---|
 | Nama proyek | MORA — DummyJSON E-commerce (frontend portfolio/capstone) |
-| Roadmap version | **1.0.1** |
-| Last verified | **2026-11-19** (GitHub branch `feature/searchParams` HEAD `60363982c368c4d79151292e16b35b38138343f5`; `src/App.tsx`, `src/loaders/productsLoader.ts`, `src/features/products/productSchema.ts`, `AGENTS.md`, dan roadmap dibaca ulang. Hasil build/lint/test belum diperiksa pada sesi ini) |
-| Last learning topic | **Tahap 3 — `src/App.tsx`**: `createBrowserRouter`, nested routes, `index`, dynamic params, referensi loader, route `lazy`, `ErrorBoundary`, `shouldRevalidate`, `RouterProvider`; penjelasan telah diberikan, **kuis dan latihan Tahap 3 belum dinilai** |
+| Roadmap version | **1.1.0** |
+| Last verified | **2026-11-19** (GitHub branch `feature/searchParams` HEAD `0118e31cd1b084f5abbecc9d91a0fa7d2bff7331`; roadmap v1.0.1 dan source `App.tsx`, loaders, filter, Products, ProductDetail telah diperiksa; compare `main` ahead 7 / behind 0. **Lint/build/tests belum dijalankan**.) |
+| Last learning topic | **Tahap 3 — `src/App.tsx`**: breakdown + kuis disediakan; mini-task route `/users` sudah dicoba dan direview (perlu `loader: usersLoader`, perbaiki case-sensitive import `./pages/Users`); **revisi belum dikonfirmasi, hasil kuis belum tersedia**. Metode mini-task Live Review mulai menjadi default. |
 | Status utama | **Fase 1: katalog + filter URL; belum merge; fitur detail masih minimal** |
 | GitHub repo | https://github.com/amri7x/e-commerce |
-| Current feature branch (verified) | `feature/searchParams`, HEAD `60363982c368c4d79151292e16b35b38138343f5` (dicek 2026-11-19). Compare ahead 3 / behind 0 berasal dari pemeriksaan 2026-11-18, **tidak diuji ulang** |
+| Current feature branch (verified) | `feature/searchParams`, HEAD `0118e31cd1b084f5abbecc9d91a0fa7d2bff7331` — ahead **7**, behind **0** dibanding `main` (pemeriksaan 2026-11-19). |
 | Figma mobile design | https://www.figma.com/design/g7NRuCh1mApDRAn7kfLdf3 |
 | Library canonical path (jika berhasil disimpan) | `/Projects/MORA/MORA_PROJECT_ROADMAP.md` |
 | Target pekerjaan | Junior/Entry-level Frontend Web Developer remote internasional; bangun bukti kemampuan, bukan sekadar demo kosmetik |
@@ -23,16 +23,18 @@
 
 1. Identifikasi tujuan chat baru dan kode/branch/commit/diff terbaru yang diberikan pengguna. Jangan meminta ulang informasi yang sudah tersedia.
 2. Baca file roadmap terbaru dari ChatGPT Library di `/Projects/MORA/MORA_PROJECT_ROADMAP.md` (atau gunakan file yang dilampirkan pengguna). Jika tersedia versi di repository, bandingkan versi/tanggal; tanyakan hanya jika ada konflik penting.
-3. Periksa implementasi sesungguhnya di GitHub `amri7x/e-commerce`, terutama **branch yang sedang dikerjakan**, saat task bergantung pada status saat ini. File roadmap adalah catatan, **kode adalah sumber kebenaran fitur**.
+3. Periksa implementasi sesungguhnya di GitHub, terutama **repository + branch/commit yang paling baru diberikan pengguna**, saat tugas bergantung pada status saat ini. Jika belum ada referensi baru, gunakan referensi terakhir yang telah diverifikasi (`amri7x/e-commerce`, `feature/searchParams` saat pembaruan ini). File roadmap adalah catatan, **kode adalah sumber kebenaran fitur**.
 4. Perlakukan tiga status secara tegas: **[DONE/VERIFIED]** ada bukti implementasi dan review; **[IN PROGRESS]** ada pengerjaan tetapi belum memenuhi acceptance criteria; **[PLANNED]** belum terbukti di kode. Jangan menandai DONE hanya karena pernah dibahas atau ada desain Figma.
 5. Saat pengguna memberikan kode, **utamakan membedah kode yang benar-benar dikirim** daripada langsung mengganti semua pendekatan atau menggenerasikan solusi panjang. Patuhi *Learning Protocol* di bawah.
 6. Setelah menyelesaikan pekerjaan yang mengubah progress/keputusan/issue: revisi roadmap **dalam sesi tersebut**: tanggal, branch/commit yang dicek, status, keputusan, blocker, `Next Action`, `Change Log`. Simpan ke file Library yang sama jika akses tersedia, dan berikan tautan unduhan versi baru. Jangan hanya menyatakan “sudah saya ingat”.
 7. **Tidak melakukan commit, push, merge, deployment, perubahan akun, atau modifikasi repository tanpa permintaan eksplisit.** Review dan roadmap tidak berarti otomatis menyentuh source code.
 8. Jika tidak bisa membaca repo, tidak bisa menyimpan ulang Library, atau tidak ada bukti test, tuliskan keterbatasannya; **jangan membuat status atau hasil pengujian palsu**.
+9. **Referensi repository dinamis:** pengguna akan mengirim tautan repo/branch/commit ketika berubah. Saat menerima referensi baru, gunakan itu untuk sesi berikutnya dan validasi file roadmap serta struktur source dari referensi tersebut. Jangan menganggap branch lama sebagai yang aktif jika referensi baru berbeda; jangan menebak isi perubahan lokal yang belum di-push. Jika tautan tidak merinci branch, periksa branch yang dituju tautan dan tanyakan hanya jika konflik menghalangi pekerjaan.
+10. **Mini-task Syntax Breakdown default memakai Live Review** jika kontrol interaktif lokal tersedia. Penilaian ini terbatas pada persyaratan latihan; jangan mengklaim sama dengan TypeScript compiler, lint, testing, atau review logika menyeluruh. Ikuti protokol §6.
 
 **Prompt pendek untuk chat baru (salin dan kirim):**
 
-> Lanjutkan proyek MORA. Cari dan baca `MORA_PROJECT_ROADMAP.md` di Library pada `/Projects/MORA/`. Bandingkan dengan kondisi branch GitHub `amri7x/e-commerce` terbaru atau kode/diff yang saya lampirkan. Gunakan aturan *Syntax Breakdown* dan AI mentor di roadmap. Kita kerjakan satu target kecil saja. Setelah selesai, perbarui file roadmap yang sama: status, apa yang diverifikasi, catatan pembelajaran, dan langkah berikutnya. Jangan commit/merge otomatis.
+> Lanjutkan MORA. Baca `MORA_PROJECT_ROADMAP.md` di Library `/Projects/MORA/`, kemudian cek source GitHub berdasarkan **tautan repository/branch terbaru yang saya kirim**; jika belum ada perubahan referensi, gunakan referensi terakhir di roadmap. Ikuti *Syntax Breakdown* dan berikan mini-task dengan **Live Review langsung** (input kode → tombol Review Kode → Benar/Perlu perbaikan + alasan), jika fitur interaktif tersedia. Saya ingin mencoba sendiri; jangan bocorkan solusi sebelum saya minta. Kerjakan satu target kecil saja, catat bukti belajar, perbarui roadmap setelah progres berubah, dan jangan commit/merge otomatis.
 
 ## 1. Visi, ruang lingkup, dan prinsip proyek
 
@@ -92,7 +94,7 @@ src/
 - [x] `Layout.tsx` memakai `useNavigation()` + skeleton khusus jalur `/products`.
 - [x] `ErrorBoundary.tsx` memproses `useRouteError()` dan `isRouteErrorResponse()`.
 - [x] `ProductDetail.tsx` menyimpan URL query ketika kembali ke katalog (`useLocation()`), namun **detail UI masih sangat minim**.
-- [x] Branch `feature/searchParams` dibanding `main`: ahead 3 / behind 0 pada 2026-11-18.
+- [x] Branch `feature/searchParams` dibanding `main`: ahead 7 / behind 0 pada 2026-11-19; HEAD `0118e31` (pembaruan roadmap, bukan bukti source code diubah pada commit tersebut).
 
 ### Belum ada bukti selesai
 
@@ -105,13 +107,13 @@ src/
 
 ### Pembelajaran syntax — progres per 2026-11-19
 
-**Pisahkan status pembelajaran dari status implementasi**: `[REVIEWED]` berarti telah dijelaskan dan diperiksa dalam chat, **bukan** bukti user telah menguasai materi atau source code sudah diuji. Status fitur aplikasi tetap mengikuti bukti pada checkpoint di atas.
+**Pisahkan status pembelajaran dari status implementasi**: `[REVIEWED]` berarti telah dijelaskan/diperiksa dalam chat, **bukan** bukti pengguna telah menguasai seluruh materi atau source code sudah diuji. `[LIVE CHECK PASSED]` berarti persyaratan mini-task lolos pemeriksaan otomatis yang tersedia, **bukan** jaminan TypeScript dapat dikompilasi atau logika bebas bug. Status fitur aplikasi tetap mengikuti bukti pada checkpoint.
 
 | Tahap | File / fokus | Status belajar | Bukti / tindak lanjut |
 |---|---|---|---|
 | 1 | `src/features/products/productSchema.ts` — Zod + `z.infer` | **[REVIEWED]** | Kuis 4/4 benar; latihan schema user memenuhi aturan, dengan perbaikan konvensi nama dan `z.email()` untuk Zod 4. User paham string `"25"` gagal `z.number()`. |
 | 2 | `src/loaders/productsLoader.ts` — fetch, `async/await`, Response, `safeParse`, detail loader | **[REVIEWED / RECALL TO RECHECK]** | User menulis `usersLoader()` sendiri. Alur utama benar, tetapi perlu memperbaiki `statusText: response.status` → `.statusText`, `safeParse(await data(response))` → `safeParse(data)`, dan `return result.user` → `result.data.users` (sesuai bentuk schema). Belum ada pengiriman ulang kode hasil koreksi. |
-| 3 | `src/App.tsx` — React Router route config, loader, `lazy`, `RouterProvider` | **[EXPLAINED / QUIZ PENDING]** | Breakdown sudah diberikan pada 2026-11-19. Kuis 4 soal dan mini-task route `/users` + `usersLoader` + dynamic import `Users` belum dijawab. |
+| 3 | `src/App.tsx` — React Router route config, loader, `lazy`, `RouterProvider` | **[EXPLAINED / MINI-TASK REVISION PENDING]** | Kuis 4 soal sudah disediakan; hasil belum dilaporkan. Mini-task objek route `/users` sudah dijawab: `path`, `ErrorBoundary`, `lazy`, destructuring dan `Component` benar; **`loader: usersLoader` terlewat**, import ditulis `./pages/users` padahal file soal `Users.tsx`. Live Review interaktif diberikan; belum ada bukti revisi lolos. |
 | 4 | `src/pages/Products.tsx` — tahap dasar `useLoaderData`, render/map/empty state | **[PLANNED]** | Bedah dulu alur daftar produk tanpa fitur filter. |
 | 5 | `src/features/products/productFilters.ts` — parse query, opsi, filter/sort | **[PLANNED]** | Pecah menjadi tiga sesi kecil. |
 | 6 | `src/features/products/ProductFilters.tsx` — props, controlled inputs, callback | **[PLANNED]** | Fokus hubungan parent → child. |
@@ -128,7 +130,7 @@ src/
 - `shouldRevalidate` pada `/products` menolak revalidasi ketika **hanya search query berubah di pathname yang sama**. Efektif untuk client-side filtering dataset penuh, tetapi perlu uji kebutuhan refresh dan perubahan data.
 - `lazy()` pada data router dapat berjalan bersamaan dengan loader; jangan mengajarkan urutan keduanya selalu serial.
 - Contoh `https://example.com/api/users` pada latihan adalah placeholder, bukan API siap pakai. Tidak ada bukti endpoint latihan pernah diuji.
-- Jangan menandai Tahap 3 selesai hanya karena materi dijelaskan; tunggu kuis / mini-task dan review.
+- Jangan menandai Tahap 3 selesai hanya karena materi dijelaskan atau Live Review ditampilkan; tunggu hasil kuis/revisi serta bukti pemeriksaan yang relevan.
 
 ## 4. Roadmap implementasi — urutan prioritas
 
@@ -222,9 +224,25 @@ Format untuk setiap potongan kode baru:
 7. **Alternatif & tradeoff:** `useEffect` vs loader, `.then` vs `await`, `parse` vs `safeParse`, `useMemo` vs tanpa memo — pilih berdasarkan kebutuhan, bukan klaim “wajib industri”.
 8. **Edge case & error:** Periksa data kosong, API gagal, invalid JSON, loading, cancellation, undefined, accessibility, security.
 9. **Ringkasan hafalan:** Tabel `syntax → fungsi → kapan digunakan` (padat agar dapat dicatat).
-10. **Latihan recall:** Tanyakan 2–5 soal/mini-task relevan; biarkan pengguna mencoba sendiri. Jika user meminta solusi lengkap, boleh beri dengan penjelasan.
+10. **Latihan recall:** Tanyakan 2–5 soal/mini-task relevan; biarkan pengguna mencoba sendiri. **Default: mini-task dengan Live Review lokal** sesuai protokol di bawah, jika tersedia. Jika user meminta solusi lengkap, boleh beri dengan penjelasan.
 
 **Pacing:** satu konsep/segmen per sesi jika panjang; jangan menjelaskan fitur yang belum diminta secara berlebihan. Gunakan penjelasan bahasa Indonesia yang natural, contoh TypeScript/React Router mengikuti versi repo. Arahkan ke dokumentasi resmi jika ada API yang berubah.
+
+### Protokol Mini-task Live Review (DEFAULT mulai roadmap v1.1.0)
+
+**Tujuan:** pengguna berlatih menulis kode sendiri di dalam chat, menekan **Review Kode**, lalu menerima hasil **Benar / Lolos pemeriksaan latihan** atau **Perlu perbaikan** per kriteria dengan penjelasan ringkas, **tanpa harus mengirim pesan/chat baru untuk setiap revisi**.
+
+1. **Satu tugas kecil dan relevan:** pilih satu file/konsep yang sedang dipelajari; cantumkan tujuan, lokasi kode, asumsi import/export dan 3–7 acceptance criteria yang konkret. Gunakan kode source dari repository/branch terbaru yang dikirim pengguna, bukan menebak versi.
+2. **Input editable dalam chat:** tampilkan editor/textarea berisi instruksi dan, jika sesuai, jawaban terakhir yang pengguna kirim. Sertakan tombol **Review Kode** dan **Reset**; pengguna bebas mencoba berulang kali tanpa memerlukan respons ChatGPT baru.
+3. **Pemeriksaan langsung berbasis aturan:** saat tombol ditekan, validasi kriteria yang bisa diperiksa secara lokal (mis. route path, referensi `loader` tanpa `()`, case-sensitive import, keberadaan `lazy`, return `Component`). Tampilkan status masing-masing, ringkasan lulus/gagal, dan **petunjuk minimal untuk bagian yang salah**. Jangan langsung memberikan seluruh solusi kecuali diminta.
+4. **Tidak hanya pencocokan teks kaku:** pertimbangkan variasi sintaks yang ekuivalen bila mampu. Jika pengecek sederhana tidak memahami variasi valid, tulis **'belum bisa diverifikasi otomatis'** atau tawarkan review AI; jangan menandai kesalahan secara pasti tanpa dasar.
+5. **Batasan harus eksplisit:** pemeriksaan pola/regex di chat **tidak menjalankan TypeScript, build, aplikasi, unit test, network request, ESLint, atau memahami seluruh alur semantik**. Status 'Benar' hanya bermakna **persyaratan yang diperiksa terpenuhi**, bukan jaminan production-ready. Jangan klaim compiler/test telah lulus.
+6. **Review ChatGPT sebagai jalur kedua:** sediakan opsi pengguna mengirim jawabannya untuk review semantik, error kompleks, jawaban alternatif, penjelasan lebih dalam, atau verifikasi status pembelajaran. Jangan otomatis mengirim setiap ketikan maupun mengirim pesan baru hanya untuk memberi label benar/salah.
+7. **Fallback bila Live Review tidak tersedia:** berikan mini-task berbentuk teks/textarea biasa dan minta jawaban pengguna untuk di-review dalam chat, tanpa berpura-pura ada evaluasi langsung. Jangan menganggap antarmuka interaktif selalu persisten lintas chat/perangkat.
+8. **Catat hasil secara jujur:** bedakan `[EXPLAINED]`, `[ATTEMPTED]`, `[LIVE CHECK PASSED]`, `[REVIEWED]`, dan `[RECALL VERIFIED]` menurut bukti nyata. Tombol sudah ditampilkan ≠ pengguna sudah lolos. Untuk menandai tahapan selesai, butuh jawaban/revisi yang terlihat dan diperiksa atau ringkasan hasil yang disampaikan pengguna; status proyek `[DONE/VERIFIED]` tetap memerlukan quality gate di §7.
+9. **Pacing:** prioritaskan kuis konsep singkat bila relevan, diikuti satu mini-task; jangan paksakan mini-task panjang. Tetap izinkan pengguna menjawab sendiri dan meminta hint sebelum solusi.
+
+**Contoh rubrik Tahap 3 (`App.tsx`, belum ditutup):** child route `path: "users"`; `loader: usersLoader` sebagai function reference; `ErrorBoundary`; `lazy: async () => ...`; dynamic import sesuai `./pages/Users` (case-sensitive di Linux); `return { Component: Users }`. Ini adalah **latihan ilustrasi**, bukan penambahan route `/users` sungguhan ke repository MORA.
 
 ### Aturan AI mentor / reviewer
 
@@ -268,13 +286,14 @@ Sebuah fitur hanya **DONE/VERIFIED** bila:
 
 ### Aturan update satu file yang sama
 
-1. Baca versi ini terlebih dahulu; baca kode/diff GitHub terbaru yang relevan.
+1. Baca versi ini terlebih dahulu; baca kode/diff GitHub dari **tautan repository/branch/commit terbaru yang diberikan pengguna**. Bila pengguna belum mengirim perubahan referensi, gunakan referensi terakhir yang terverifikasi di metadata; jangan otomatis menganggap branch sebelumnya masih aktif setelah pengguna memberi tautan baru.
 2. **Jangan hapus histori penting atau rencana yang belum dikerjakan.** Tandai item selesai hanya dengan bukti; tambahkan item/bug jika ada.
 3. Perbarui metadata `Roadmap version` (contoh 1.0.1 untuk log progres; minor untuk perubahan roadmap penting), `Last verified`, branch, dan `Last learning topic`.
-4. Perbarui `Checkpoint`, checkboxes fase terkait, `Known backlog`, serta **Next Action** di bawah.
+4. Perbarui `Checkpoint`, checkboxes fase terkait, `Known backlog`, serta **Next Action** di bawah. Pada pembelajaran, tuliskan apakah mini-task baru **ditampilkan**, **dicoba**, **lulus Live Review**, atau **direview manual**; jangan menyamakan keempatnya.
 5. Tambahkan entri `Change Log` berupa tanggal, pekerjaan, bukti, dampak, serta kendala terbuka.
 6. Simpan ulang file dengan **nama yang sama** di `/Projects/MORA/MORA_PROJECT_ROADMAP.md` jika akses Library tersedia. Jika perlu pembaruan ke GitHub, **minta pengguna untuk menyuruhnya** atau kirim file unduhan untuk disalin ke repo `docs/`.
 7. Tunjukkan tautan roadmap terbaru / file download kepada pengguna setiap kali ada pembaruan. Jika save gagal, nyatakan dengan jelas.
+8. Untuk mini-task, catat rubrik dan bukti hasil yang tersedia; keputusan **Live Review** berlaku pada pengalaman belajar di chat, bukan fitur yang harus ditambahkan ke kode produksi MORA.
 
 ### Template ringkas sesi baru
 
@@ -292,32 +311,43 @@ Sebuah fitur hanya **DONE/VERIFIED** bila:
 - NEXT ACTION (one small task):
 ```
 
-### Session log — 2026-11-19
-- Task / user request: lanjut Syntax Breakdown Tahap 3 dan siapkan roadmap yang bisa disalin ke `docs/MORA_PROJECT_ROADMAP.md`.
-- Branch / commit examined: `feature/searchParams` @ `60363982c368c4d79151292e16b35b38138343f5`.
+### Session log — 2026-11-19 (sinkronisasi v1.0.1 dari GitHub)
+- Task / user request: lanjut Syntax Breakdown Tahap 3 dan siapkan roadmap sesuai source terbaru.
+- Branch / commit examined: `feature/searchParams` @ `60363982c368c4d79151292e16b35b38138343f5` (catatan pada roadmap GitHub v1.0.1).
 - Files reviewed: `docs/MORA_PROJECT_ROADMAP.md`, `src/App.tsx`, `src/loaders/productsLoader.ts`, `src/features/products/productSchema.ts`, `AGENTS.md`.
-- Changes actually made: versi Markdown roadmap **1.0.1** dihasilkan sebagai file unduhan; repo GitHub dan Library asli tidak diubah.
-- Verification performed: pembacaan source code GitHub dan kesamaan Git blob roadmap sumber; **lint/build/tests tidak dijalankan**.
-- Syntax practiced and recall result: Tahap 1 kuis 4/4; Tahap 2 latihan `usersLoader` sudah direview tetapi revisi belum diserahkan; Tahap 3 materi dijelaskan, kuis masih menunggu.
-- Decisions / tradeoffs: tetap memakai arsitektur route loader yang sudah ada; `shouldRevalidate` khusus filter dibahas sebagai optimasi bersyarat.
-- Outstanding bugs / limitations: backlog teknis pada §7 tetap terbuka; tidak ada verifikasi perilaku aplikasi di browser.
-- Roadmap status changes: pembaruan status *learning only*, bukan penutupan implementasi fitur.
-- NEXT ACTION (one small task): kuis dan mini-task route `/users` Tahap 3, lalu breakdown `Products.tsx` tahap dasar.
+- Changes actually made: roadmap v1.0.1 dibuat pada sesi terdahulu; kemudian di-push oleh pengguna pada commit `0118e31`.
+- Verification performed: pembacaan kode GitHub pada sesi terdahulu; tidak ada bukti lint/build/tests.
+- Syntax practiced and recall result: Tahap 1 4/4; Tahap 2 latihan usersLoader direview, perlu revisi; Tahap 3 breakdown sudah diberikan.
+- Roadmap status changes: pembaruan status belajar, bukan penyelesaian fitur.
+
+### Session log — 2026-11-19 (protokol Live Review v1.1.0)
+- Task / user request: jadikan mini-task Live Review sebagai metode default Syntax Breakdown; pengguna akan mengirim referensi repo/branch baru saat berubah.
+- Branch / commit examined: `amri7x/e-commerce`, `feature/searchParams` @ `0118e31cd1b084f5abbecc9d91a0fa7d2bff7331` (GitHub). Compare `main`: ahead 7, behind 0.
+- Files reviewed: roadmap v1.0.1 di GitHub; code `src/App.tsx`, `src/loaders/productsLoader.ts`, `src/pages/Products.tsx`, `src/features/products/productFilters.ts`, `src/features/products/ProductFilters.tsx`, `src/pages/ProductDetail.tsx`, `package.json`.
+- Changes actually made: roadmap v1.1.0 diperbarui; protokol mini-task Live Review dan prioritas referensi repo ditambahkan; tidak mengubah source aplikasi, tidak commit/push GitHub.
+- Verification performed: pemeriksaan konten source dan commit GitHub. **Lint, build, automated tests, dan Live Review revisi pengguna belum dijalankan/terbukti**.
+- Syntax practiced and recall result: pengguna mengirim mini-task route `/users`; hampir benar, tetapi lupa properti `loader` dan menulis `./pages/users` alih-alih `./pages/Users`. Contoh Live Review interaktif sudah disediakan; revisi dan hasil kuis belum terkonfirmasi.
+- Decisions / tradeoffs: Live Review lokal menjadi default ketika tersedia, dengan caveat bukan compiler; ChatGPT review tetap tersedia untuk logika dan solusi alternatif.
+- Outstanding bugs / limitations: backlog teknis §7 terbuka; input UI interaktif tidak otomatis menetap antar chat atau tersimpan sebagai bukti penilaian.
+- Roadmap status changes: **Tahap 3 tetap IN PROGRESS**; Fase 1 aplikasi tetap IN PROGRESS.
+- NEXT ACTION (one small task): koreksi mini-task route `/users` via Live Review, lalu bahas function reference vs call vs arrow function dan konfirmasi hasil kuis. Setelah itu Tahap 4 `Products.tsx` dasar.
 
 ### NEXT ACTION — prioritas terdekat (2026-11-19)
 
-**Learning Mode — satu target kecil:** nilai kuis Tahap 3 (`App.tsx`), kemudian minta pengguna menulis contoh konfigurasi route `/users` dengan `loader: usersLoader` dan `lazy()` yang memuat komponen `Users`. Tinjau kode yang dikirim dan jelaskan perbaikannya, tanpa menulis ulang semuanya bila tidak diminta. Setelah itu mulai **Tahap 4 — `src/pages/Products.tsx` versi dasar**, memisahkan `useLoaderData`, kondisi array kosong, dan `.map()` dari fitur filter.
+**Learning Mode (gunakan Live Review default):** tampilkan kembali mini-task Tahap 3 berdasarkan kode/referensi paling baru yang diberikan pengguna. Minta pengguna memperbaiki `loader` dan case-sensitive import pada jawaban route `/users`; beri label per kriteria secara lokal. Setelah ada bukti latihan berhasil, review konsep `function reference` vs `function call` vs `arrow function`, verifikasi hasil kuis yang belum diketahui, lalu masuk **Tahap 4 — `src/pages/Products.tsx` dasar** (`useLoaderData`, array kosong, `.map()`). Jangan tulis solusi lengkap lebih dahulu.
 
-**Development Mode — tetap Fase 1 IN PROGRESS:** review manual `feature/searchParams` (kombinasi filter, invalid query, empty state, refresh/back/forward, detail-back), lalu verifikasi nyata `npm run lint`, `npm run build`, tes terkait, dan PR review sebelum memutuskan merge. Tidak ada klaim semua pengujian sudah lulus atau branch sudah merge.
+**Development Mode — Fase 1 tetap IN PROGRESS:** lakukan review manual filter combinations, invalid query, empty state, refresh/back/forward, detail-back, lalu cek `npm run lint`/`npm run build` secara nyata sebelum PR/merge.
 
-**Instruksi sinkronisasi:** GitHub adalah sumber bersama lintas laptop/HP untuk kode yang telah di-push. Jika user membuat branch atau local change baru, periksa branch/commit terbaru terlebih dahulu. Roadmap ini adalah catatan progres, bukan bukti kode terbaru di lingkungan lokal.
+**Sinkronisasi referensi:** ketika pengguna mengirim tautan repository/branch baru, gunakan referensi baru tersebut pada sesi itu dan sesi berikutnya, bukan HEAD/branch lama. Jika belum dikirim perubahan, gunakan `amri7x/e-commerce` branch `feature/searchParams` sebagai referensi terakhir yang diketahui. Perubahan yang hanya ada di laptop lokal tidak bisa dianggap terlihat di GitHub.
+
 
 ## 10. Change Log / Audit Trail
 
 | Tanggal | Versi | Aktivitas dan bukti | Dampak status |
 |---|---|---|---|
 | 2026-11-18 | 1.0.0 | Roadmap awal dibuat dari diskusi, review kode GitHub (branch `feature/searchParams` ahead 3 dari `main`), `PROJECT_MAP.md`, `package.json`, dan tautan Figma mobile MORA. Pembelajaran terakhir membedah `productsLoader.ts` dan `productDetailLoader`. | Fase 1 masih IN PROGRESS. Tidak ada source code yang diubah / PR yang di-merge oleh pembuatan roadmap. |
-| 2026-11-19 | 1.0.1 | Sumber roadmap GitHub blob `c5e0c9de0a8b5e9798155a3455a82c8f48f422cf`; branch HEAD `60363982c368c4d79151292e16b35b38138343f5`. Review `productSchema.ts`, `productsLoader.ts`, `App.tsx`, `AGENTS.md`. Rekap syntax Tahap 1 (kuis 4/4), Tahap 2 (latihan usersLoader direview, tiga koreksi), Tahap 3 (breakdown dan kuis disediakan; belum dikumpulkan). | Hanya pembaruan dokumen Markdown untuk disalin pengguna. **Tidak ada perubahan source code, commit, PR, merge, deploy, lint, build, atau automated test** pada sesi ini. Fase 1 tetap IN PROGRESS. |
+| 2026-11-19 | 1.0.1 | GitHub roadmap commit `0118e31` (berasal dari review commit sebelumnya `60363982`). Menambahkan status rinci Syntax Breakdown Tahap 1–8 serta session log. | Tahap 3 telah dijelaskan; pada versi ini kuis/mini-task masih pending. Fase 1 tetap IN PROGRESS. |
+| 2026-11-19 | 1.1.0 | Review GitHub `feature/searchParams` HEAD `0118e31` (ahead 7/behind 0), sinkronisasi roadmap 1.0.1, tambahkan protokol Live Review untuk mini-task dan aturan referensi repo dinamis. Catat percobaan mini-task Tahap 3 dan dua koreksi yang masih harus diperiksa. | Mini-task interaktif menjadi metode belajar default ketika didukung; **Tahap 3 belum dinyatakan selesai**; tidak ada commit, push, merge, build, lint, atau tes aplikasi dalam sesi ini. |
 
 ---
 
