@@ -7,12 +7,12 @@
 | Metadata | Nilai |
 |---|---|
 | Nama proyek | MORA — DummyJSON E-commerce (frontend portfolio/capstone) |
-| Roadmap version | **1.0.0** |
-| Last verified | **2026-11-18** (GitHub: compare `main` vs `feature/searchParams`; `PROJECT_MAP.md`; `package.json`; kode telah diperiksa pada percakapan ini) |
-| Last learning topic | Bedah `src/loaders/productsLoader.ts` sampai `productDetailLoader`, async/await, destructuring, Response, Zod |
+| Roadmap version | **1.0.1** |
+| Last verified | **2026-11-19** (GitHub branch `feature/searchParams` HEAD `60363982c368c4d79151292e16b35b38138343f5`; `src/App.tsx`, `src/loaders/productsLoader.ts`, `src/features/products/productSchema.ts`, `AGENTS.md`, dan roadmap dibaca ulang. Hasil build/lint/test belum diperiksa pada sesi ini) |
+| Last learning topic | **Tahap 3 — `src/App.tsx`**: `createBrowserRouter`, nested routes, `index`, dynamic params, referensi loader, route `lazy`, `ErrorBoundary`, `shouldRevalidate`, `RouterProvider`; penjelasan telah diberikan, **kuis dan latihan Tahap 3 belum dinilai** |
 | Status utama | **Fase 1: katalog + filter URL; belum merge; fitur detail masih minimal** |
 | GitHub repo | https://github.com/amri7x/e-commerce |
-| Current feature branch (verified) | `feature/searchParams` — **ahead 3**, behind 0 dibanding `main` (pemeriksaan 2026-11-18; dapat berubah) |
+| Current feature branch (verified) | `feature/searchParams`, HEAD `60363982c368c4d79151292e16b35b38138343f5` (dicek 2026-11-19). Compare ahead 3 / behind 0 berasal dari pemeriksaan 2026-11-18, **tidak diuji ulang** |
 | Figma mobile design | https://www.figma.com/design/g7NRuCh1mApDRAn7kfLdf3 |
 | Library canonical path (jika berhasil disimpan) | `/Projects/MORA/MORA_PROJECT_ROADMAP.md` |
 | Target pekerjaan | Junior/Entry-level Frontend Web Developer remote internasional; bangun bukti kemampuan, bukan sekadar demo kosmetik |
@@ -80,7 +80,7 @@ src/
 └── ThemeProvider.tsx                    # tema lokal; diketahui lint issue sebelumnya
 ```
 
-## 3. Checkpoint kode terakhir — 2026-11-18
+## 3. Checkpoint kode terakhir — 2026-11-19 (review parsial)
 
 ### Sudah terbukti di kode (bukan sekadar rencana)
 
@@ -103,20 +103,32 @@ src/
 - [ ] Form checkout dengan Zod, payment demo, order history.
 - [ ] Automated tests, profiler measurements, README portofolio, verifikasi deployment.
 
-### Pembelajaran syntax terakhir
+### Pembelajaran syntax — progres per 2026-11-19
 
-File yang **sudah dibedah secara konseptual** dalam percakapan ini: `src/loaders/productsLoader.ts`.
+**Pisahkan status pembelajaran dari status implementasi**: `[REVIEWED]` berarti telah dijelaskan dan diperiksa dalam chat, **bukan** bukti user telah menguasai materi atau source code sudah diuji. Status fitur aplikasi tetap mengikuti bukti pada checkpoint di atas.
 
-- Import biasa vs `import type`; named import; `const`; Vite `import.meta.env`.
-- Arrow function, implicit return, `new Response`, `throw` vs `return`.
-- `async`, `await`, `Promise<unknown>`, `Promise<Product[]>`, `Promise<Product>`.
-- Function parameter destructuring `({ request, params }: LoaderFunctionArgs)`.
-- `fetch(url, options)`, template literal, `request.signal`, `response.ok`.
-- `try/catch`, parsing JSON, Zod `safeParse`, pembatasan tipe `unknown`.
-- Dynamic URL `:id`, `params.id`, `useLoaderData<typeof loader>()`.
-- Perbandingan `useEffect` data fetching vs React Router loader.
+| Tahap | File / fokus | Status belajar | Bukti / tindak lanjut |
+|---|---|---|---|
+| 1 | `src/features/products/productSchema.ts` — Zod + `z.infer` | **[REVIEWED]** | Kuis 4/4 benar; latihan schema user memenuhi aturan, dengan perbaikan konvensi nama dan `z.email()` untuk Zod 4. User paham string `"25"` gagal `z.number()`. |
+| 2 | `src/loaders/productsLoader.ts` — fetch, `async/await`, Response, `safeParse`, detail loader | **[REVIEWED / RECALL TO RECHECK]** | User menulis `usersLoader()` sendiri. Alur utama benar, tetapi perlu memperbaiki `statusText: response.status` → `.statusText`, `safeParse(await data(response))` → `safeParse(data)`, dan `return result.user` → `result.data.users` (sesuai bentuk schema). Belum ada pengiriman ulang kode hasil koreksi. |
+| 3 | `src/App.tsx` — React Router route config, loader, `lazy`, `RouterProvider` | **[EXPLAINED / QUIZ PENDING]** | Breakdown sudah diberikan pada 2026-11-19. Kuis 4 soal dan mini-task route `/users` + `usersLoader` + dynamic import `Users` belum dijawab. |
+| 4 | `src/pages/Products.tsx` — tahap dasar `useLoaderData`, render/map/empty state | **[PLANNED]** | Bedah dulu alur daftar produk tanpa fitur filter. |
+| 5 | `src/features/products/productFilters.ts` — parse query, opsi, filter/sort | **[PLANNED]** | Pecah menjadi tiga sesi kecil. |
+| 6 | `src/features/products/ProductFilters.tsx` — props, controlled inputs, callback | **[PLANNED]** | Fokus hubungan parent → child. |
+| 7 | `src/pages/Products.tsx` — integrasi `useSearchParams`, `useMemo` | **[PLANNED]** | Sambungkan UI dan logika filter. |
+| 8 | `src/App.tsx` — pendalaman `shouldRevalidate` | **[PLANNED]** | Bahas tradeoff refresh/revalidation dan edge cases, meskipun syntax dikenalkan pada Tahap 3. |
 
-**Catatan kualitas untuk belajar lebih lanjut:** `readJson()` yang menangkap semua error `response.json()` lalu melempar 502 juga dapat menangkap `AbortError` karena request dibatalkan. Nanti bahas pembedaan abort vs invalid JSON; jangan otomatis mengganti kode tanpa konteks.
+**Konsep yang telah dibedah:**
+- Tahap 1: `z.object`, `z.string`, `z.number`, `.trim`, `.min`, `.int`, `.positive`, `.nonnegative`, `.optional`, `z.array`, `z.infer<typeof schema>`, compile-time vs runtime.
+- Tahap 2: `import type`, arrow function, implicit return, `new Response`, `throw` vs `return`, `async/await`, `Promise<unknown>`, `Promise<Product[]>`, destructuring, `fetch`, template literal, `request.signal`, `response.ok`, `try/catch`, parsing JSON, `.safeParse`, dynamic `params.id`.
+- Tahap 3: array/object konfigurasi route, `path`, `children`, `index: true`, dynamic `:id`, **referensi fungsi** `loader: productsLoader` (bukan langsung memanggil `productsLoader()`), `lazy: async () => import(...)`, named export `Component`, `ErrorBoundary`, `RouterProvider`, operator `===`, `&&`, ternary `?:`.
+
+**Catatan kualitas / klarifikasi:**
+- `readJson()` pada loader menangkap error dari `response.json()` dan mengubahnya menjadi Response 502; `AbortError` ketika fetch dibatalkan juga dapat terkena penanganan ini. Bahas pembedaan abort vs malformed JSON pada sesi review, jangan refactor otomatis.
+- `shouldRevalidate` pada `/products` menolak revalidasi ketika **hanya search query berubah di pathname yang sama**. Efektif untuk client-side filtering dataset penuh, tetapi perlu uji kebutuhan refresh dan perubahan data.
+- `lazy()` pada data router dapat berjalan bersamaan dengan loader; jangan mengajarkan urutan keduanya selalu serial.
+- Contoh `https://example.com/api/users` pada latihan adalah placeholder, bukan API siap pakai. Tidak ada bukti endpoint latihan pernah diuji.
+- Jangan menandai Tahap 3 selesai hanya karena materi dijelaskan; tunggu kuis / mini-task dan review.
 
 ## 4. Roadmap implementasi — urutan prioritas
 
@@ -280,17 +292,32 @@ Sebuah fitur hanya **DONE/VERIFIED** bila:
 - NEXT ACTION (one small task):
 ```
 
-### NEXT ACTION — prioritas terdekat (2026-11-18)
+### Session log — 2026-11-19
+- Task / user request: lanjut Syntax Breakdown Tahap 3 dan siapkan roadmap yang bisa disalin ke `docs/MORA_PROJECT_ROADMAP.md`.
+- Branch / commit examined: `feature/searchParams` @ `60363982c368c4d79151292e16b35b38138343f5`.
+- Files reviewed: `docs/MORA_PROJECT_ROADMAP.md`, `src/App.tsx`, `src/loaders/productsLoader.ts`, `src/features/products/productSchema.ts`, `AGENTS.md`.
+- Changes actually made: versi Markdown roadmap **1.0.1** dihasilkan sebagai file unduhan; repo GitHub dan Library asli tidak diubah.
+- Verification performed: pembacaan source code GitHub dan kesamaan Git blob roadmap sumber; **lint/build/tests tidak dijalankan**.
+- Syntax practiced and recall result: Tahap 1 kuis 4/4; Tahap 2 latihan `usersLoader` sudah direview tetapi revisi belum diserahkan; Tahap 3 materi dijelaskan, kuis masih menunggu.
+- Decisions / tradeoffs: tetap memakai arsitektur route loader yang sudah ada; `shouldRevalidate` khusus filter dibahas sebagai optimasi bersyarat.
+- Outstanding bugs / limitations: backlog teknis pada §7 tetap terbuka; tidak ada verifikasi perilaku aplikasi di browser.
+- Roadmap status changes: pembaruan status *learning only*, bukan penutupan implementasi fitur.
+- NEXT ACTION (one small task): kuis dan mini-task route `/users` Tahap 3, lalu breakdown `Products.tsx` tahap dasar.
 
-**Tuntaskan dan review `feature/searchParams` sebelum pindah fitur besar.** Pada chat berikutnya, pengguna dapat mengirim kode/diff terbaru dari VS Code untuk membedah syntax dan memeriksa behavior kategori, brand, sort, invalid query, empty results, dan tautan detail → kembali ke katalog. Jika sudah sesuai, lanjut setup test dasar dan verifikasi lokal sebelum PR/merge.
+### NEXT ACTION — prioritas terdekat (2026-11-19)
 
-**Jika pengguna ingin mempelajari materi secara terpisah:** lanjut mini-task `userLoader()` DummyJSON `/users/1` menggunakan `async/await`, `fetch`, `response.ok`, error handling, tanpa AI menulis solusi dulu.
+**Learning Mode — satu target kecil:** nilai kuis Tahap 3 (`App.tsx`), kemudian minta pengguna menulis contoh konfigurasi route `/users` dengan `loader: usersLoader` dan `lazy()` yang memuat komponen `Users`. Tinjau kode yang dikirim dan jelaskan perbaikannya, tanpa menulis ulang semuanya bila tidak diminta. Setelah itu mulai **Tahap 4 — `src/pages/Products.tsx` versi dasar**, memisahkan `useLoaderData`, kondisi array kosong, dan `.map()` dari fitur filter.
+
+**Development Mode — tetap Fase 1 IN PROGRESS:** review manual `feature/searchParams` (kombinasi filter, invalid query, empty state, refresh/back/forward, detail-back), lalu verifikasi nyata `npm run lint`, `npm run build`, tes terkait, dan PR review sebelum memutuskan merge. Tidak ada klaim semua pengujian sudah lulus atau branch sudah merge.
+
+**Instruksi sinkronisasi:** GitHub adalah sumber bersama lintas laptop/HP untuk kode yang telah di-push. Jika user membuat branch atau local change baru, periksa branch/commit terbaru terlebih dahulu. Roadmap ini adalah catatan progres, bukan bukti kode terbaru di lingkungan lokal.
 
 ## 10. Change Log / Audit Trail
 
 | Tanggal | Versi | Aktivitas dan bukti | Dampak status |
 |---|---|---|---|
 | 2026-11-18 | 1.0.0 | Roadmap awal dibuat dari diskusi, review kode GitHub (branch `feature/searchParams` ahead 3 dari `main`), `PROJECT_MAP.md`, `package.json`, dan tautan Figma mobile MORA. Pembelajaran terakhir membedah `productsLoader.ts` dan `productDetailLoader`. | Fase 1 masih IN PROGRESS. Tidak ada source code yang diubah / PR yang di-merge oleh pembuatan roadmap. |
+| 2026-11-19 | 1.0.1 | Sumber roadmap GitHub blob `c5e0c9de0a8b5e9798155a3455a82c8f48f422cf`; branch HEAD `60363982c368c4d79151292e16b35b38138343f5`. Review `productSchema.ts`, `productsLoader.ts`, `App.tsx`, `AGENTS.md`. Rekap syntax Tahap 1 (kuis 4/4), Tahap 2 (latihan usersLoader direview, tiga koreksi), Tahap 3 (breakdown dan kuis disediakan; belum dikumpulkan). | Hanya pembaruan dokumen Markdown untuk disalin pengguna. **Tidak ada perubahan source code, commit, PR, merge, deploy, lint, build, atau automated test** pada sesi ini. Fase 1 tetap IN PROGRESS. |
 
 ---
 
