@@ -1,6 +1,6 @@
 import type {
   ProductFilterName,
-  ProductFilters as ProductFiltersValue,
+  ProductFilter as ProductFiltersValue,
 } from './productFilters'
 
 type ProductFiltersProps = {

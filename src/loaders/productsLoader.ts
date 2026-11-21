@@ -21,7 +21,7 @@ const readJson = async (response: Response): Promise<unknown> => {
 }
 
 export const productsLoader = async ({
-  request,
+  request
 }: LoaderFunctionArgs): Promise<Product[]> => {
   const response = await fetch(`${API_URL}/?limit=0`, {
     signal: request.signal,
@@ -45,7 +45,7 @@ export const productsLoader = async ({
 
 export const productDetailLoader = async ({
   request,
-  params,
+  params
 }: LoaderFunctionArgs): Promise<Product> => {
   const { id } = params
 
