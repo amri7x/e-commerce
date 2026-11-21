@@ -7,12 +7,12 @@
 | Metadata | Nilai |
 |---|---|
 | Nama proyek | MORA — DummyJSON E-commerce (frontend portfolio/capstone) |
-| Roadmap version | **1.1.0** |
-| Last verified | **2026-11-19** (GitHub branch `feature/searchParams` HEAD `0118e31cd1b084f5abbecc9d91a0fa7d2bff7331`; roadmap v1.0.1 dan source `App.tsx`, loaders, filter, Products, ProductDetail telah diperiksa; compare `main` ahead 7 / behind 0. **Lint/build/tests belum dijalankan**.) |
-| Last learning topic | **Tahap 3 — `src/App.tsx`**: breakdown + kuis disediakan; mini-task route `/users` sudah dicoba dan direview (perlu `loader: usersLoader`, perbaiki case-sensitive import `./pages/Users`); **revisi belum dikonfirmasi, hasil kuis belum tersedia**. Metode mini-task Live Review mulai menjadi default. |
+| Roadmap version | **1.2.0** |
+| Last verified | **2026-11-21** (GitHub branch `feature/searchParams` HEAD `380991d044c09ce4ad72a82d5328fbf08e52b9f2`; `productFilters.ts`, `ProductFilters.tsx`, dan `Products.tsx` diperiksa. **Lint/build/tests belum dijalankan**.) |
+| Last learning topic | **Tahap 5 — `productFilters.ts` dinyatakan selesai atas persetujuan pengguna (2026-11-21)**: Segmen 2 (kuis 4/4, mini-task 5/5) dan Segmen 3 (kuis 4/5, mini-task 5/5) telah direview; Segmen 1 memiliki catatan kecil `.optional()`, `keyof`, dan normalisasi nilai URL. **Tahap 6 `ProductFilters.tsx` dimulai: modul PDF lengkap bilingual disiapkan; kuis/mini-task belum dinilai.** |
 | Status utama | **Fase 1: katalog + filter URL; belum merge; fitur detail masih minimal** |
 | GitHub repo | https://github.com/amri7x/e-commerce |
-| Current feature branch (verified) | `feature/searchParams`, HEAD `0118e31cd1b084f5abbecc9d91a0fa7d2bff7331` — ahead **7**, behind **0** dibanding `main` (pemeriksaan 2026-11-19). |
+| Current feature branch (verified) | `feature/searchParams`, HEAD `380991d044c09ce4ad72a82d5328fbf08e52b9f2` (pemeriksaan 2026-11-21; status ahead/behind **tidak dihitung ulang**). |
 | Figma mobile design | https://www.figma.com/design/g7NRuCh1mApDRAn7kfLdf3 |
 | Library canonical path (jika berhasil disimpan) | `/Projects/MORA/MORA_PROJECT_ROADMAP.md` |
 | Target pekerjaan | Junior/Entry-level Frontend Web Developer remote internasional; bangun bukti kemampuan, bukan sekadar demo kosmetik |
@@ -105,7 +105,7 @@ src/
 - [ ] Form checkout dengan Zod, payment demo, order history.
 - [ ] Automated tests, profiler measurements, README portofolio, verifikasi deployment.
 
-### Pembelajaran syntax — progres per 2026-11-19
+### Pembelajaran syntax — progres diperbarui 2026-11-21
 
 **Pisahkan status pembelajaran dari status implementasi**: `[REVIEWED]` berarti telah dijelaskan/diperiksa dalam chat, **bukan** bukti pengguna telah menguasai seluruh materi atau source code sudah diuji. `[LIVE CHECK PASSED]` berarti persyaratan mini-task lolos pemeriksaan otomatis yang tersedia, **bukan** jaminan TypeScript dapat dikompilasi atau logika bebas bug. Status fitur aplikasi tetap mengikuti bukti pada checkpoint.
 
@@ -113,10 +113,10 @@ src/
 |---|---|---|---|
 | 1 | `src/features/products/productSchema.ts` — Zod + `z.infer` | **[REVIEWED]** | Kuis 4/4 benar; latihan schema user memenuhi aturan, dengan perbaikan konvensi nama dan `z.email()` untuk Zod 4. User paham string `"25"` gagal `z.number()`. |
 | 2 | `src/loaders/productsLoader.ts` — fetch, `async/await`, Response, `safeParse`, detail loader | **[REVIEWED / RECALL TO RECHECK]** | User menulis `usersLoader()` sendiri. Alur utama benar, tetapi perlu memperbaiki `statusText: response.status` → `.statusText`, `safeParse(await data(response))` → `safeParse(data)`, dan `return result.user` → `result.data.users` (sesuai bentuk schema). Belum ada pengiriman ulang kode hasil koreksi. |
-| 3 | `src/App.tsx` — React Router route config, loader, `lazy`, `RouterProvider` | **[EXPLAINED / MINI-TASK REVISION PENDING]** | Kuis 4 soal sudah disediakan; hasil belum dilaporkan. Mini-task objek route `/users` sudah dijawab: `path`, `ErrorBoundary`, `lazy`, destructuring dan `Component` benar; **`loader: usersLoader` terlewat**, import ditulis `./pages/users` padahal file soal `Users.tsx`. Live Review interaktif diberikan; belum ada bukti revisi lolos. |
-| 4 | `src/pages/Products.tsx` — tahap dasar `useLoaderData`, render/map/empty state | **[PLANNED]** | Bedah dulu alur daftar produk tanpa fitur filter. |
-| 5 | `src/features/products/productFilters.ts` — parse query, opsi, filter/sort | **[PLANNED]** | Pecah menjadi tiga sesi kecil. |
-| 6 | `src/features/products/ProductFilters.tsx` — props, controlled inputs, callback | **[PLANNED]** | Fokus hubungan parent → child. |
+| 3 | `src/App.tsx` — React Router route config, loader, `lazy`, `RouterProvider` | **[COMPLETED — USER-REPORTED]** | Pengguna menyatakan revisi dan hasil kuis Tahap 3 telah selesai (2026-11-19); rincian jawaban kuis dan hasil uji lokal tidak tersedia di sesi pembaruan ini. |
+| 4 | `src/pages/Products.tsx` — tahap dasar `useLoaderData`, render/map/empty state | **[REVIEWED / LEARNING COMPLETED]** | Revisi mini-task `Products.tsx` menerima penilaian mentor 6/6: useLoaderData, empty state, map/key, title, price, alt; penilaian statis, bukan lint/build/test. |
+| 5 | `src/features/products/productFilters.ts` — parse query, opsi, filter/sort | **[LEARNING COMPLETED — USER SIGN-OFF]** | Segmen 1 dibahas & mini-task dicoba (4/5, koreksi `.optional()` belum dikirim ulang); Segmen 2 kuis 4/4, mini-task 5/5; Segmen 3 kuis 4/5, mini-task 5/5. Pengguna meminta tandai selesai pada 2026-11-21. Sisa recall Segmen 1 menjadi catatan opsional; tidak dinyatakan semua kriteria tes lolos. |
+| 6 | `src/features/products/ProductFilters.tsx` — props, controlled inputs, callback | **[IN PROGRESS — MATERIAL PREPARED]** | Materi PDF lengkap bilingual Tahap 6 dibuat dari kode sumber branch terbaru; kuis dan mini-task belum dikerjakan/direview. |
 | 7 | `src/pages/Products.tsx` — integrasi `useSearchParams`, `useMemo` | **[PLANNED]** | Sambungkan UI dan logika filter. |
 | 8 | `src/App.tsx` — pendalaman `shouldRevalidate` | **[PLANNED]** | Bahas tradeoff refresh/revalidation dan edge cases, meskipun syntax dikenalkan pada Tahap 3. |
 
@@ -228,6 +228,18 @@ Format untuk setiap potongan kode baru:
 
 **Pacing:** satu konsep/segmen per sesi jika panjang; jangan menjelaskan fitur yang belum diminta secara berlebihan. Gunakan penjelasan bahasa Indonesia yang natural, contoh TypeScript/React Router mengikuti versi repo. Arahkan ke dokumentasi resmi jika ada API yang berubah.
 
+
+### Aturan baru — PDF Syntax Breakdown bilingual (mulai 2026-11-21)
+
+1. **Wajib bilingual untuk semua PDF Syntax Breakdown MORA:** setiap paragraf penjelasan bahasa Indonesia diikuti **terjemahan bahasa Inggris tepat di bawahnya**, bukan dijadikan satu paragraf. Bahasa Inggris memakai *italic*, ukuran sedikit lebih kecil, dan warna sekunder (mis. abu-abu kebiruan); teks Indonesia tetap utama.
+2. **Terjemahan harus alami dan benar secara tata bahasa**, bukan terjemahan harfiah yang salah. Contoh: "Fungsi ini tidak melakukan filtering produk." -> *"This function does not filter products."*
+3. Terapkan juga pada tujuan pembelajaran, bedah syntax, catatan penting, contoh penjelasan, tabel konseptual, pertanyaan kuis, instruksi mini-task, petunjuk, dan ringkasan. Untuk tabel sempit, tampilkan pasangan bahasa secara ringkas dalam satu sel atau baris di bawahnya tanpa membuat tabel meluber.
+4. **Kode TypeScript/TSX asli tetap persis seperti repository** pada blok "Kode asli"; jangan menerjemahkan identifier, prop, keyword, nilai string, URL, atau sintaks. Potongan kode ilustrasi diberi label jelas dan dibedakan dari kode asli.
+5. Urutan materi tetap **dasar -> contoh kecil -> kode asli -> alur eksekusi -> edge cases -> kuis -> mini-task**. Jangan menampilkan kunci jawaban kuis/solusi mini-task sebelum pengguna mencoba, kecuali diminta.
+6. PDF harus dapat dibaca dengan nyaman di HP maupun laptop: heading jelas, jeda rapi, kode tidak terpotong, pasangan Indonesia/Inggris tetap berdekatan, dan pemeriksaan visual setiap halaman dilakukan sebelum dikirim.
+7. **Status pembelajaran tidak sama dengan status fitur produksi**. Persetujuan pengguna untuk menutup tahap dapat dicatat sebagai `[LEARNING COMPLETED — USER SIGN-OFF]` walau ada catatan recall; jangan mengubahnya menjadi klaim automated test atau build lulus.
+
+
 ### Protokol Mini-task Live Review (DEFAULT mulai roadmap v1.1.0)
 
 **Tujuan:** pengguna berlatih menulis kode sendiri di dalam chat, menekan **Review Kode**, lalu menerima hasil **Benar / Lolos pemeriksaan latihan** atau **Perlu perbaikan** per kriteria dengan penjelasan ringkas, **tanpa harus mengirim pesan/chat baru untuk setiap revisi**.
@@ -332,14 +344,26 @@ Sebuah fitur hanya **DONE/VERIFIED** bila:
 - Roadmap status changes: **Tahap 3 tetap IN PROGRESS**; Fase 1 aplikasi tetap IN PROGRESS.
 - NEXT ACTION (one small task): koreksi mini-task route `/users` via Live Review, lalu bahas function reference vs call vs arrow function dan konfirmasi hasil kuis. Setelah itu Tahap 4 `Products.tsx` dasar.
 
-### NEXT ACTION — prioritas terdekat (2026-11-19)
+### NEXT ACTION — prioritas terdekat (2026-11-21)
 
-**Learning Mode (gunakan Live Review default):** tampilkan kembali mini-task Tahap 3 berdasarkan kode/referensi paling baru yang diberikan pengguna. Minta pengguna memperbaiki `loader` dan case-sensitive import pada jawaban route `/users`; beri label per kriteria secara lokal. Setelah ada bukti latihan berhasil, review konsep `function reference` vs `function call` vs `arrow function`, verifikasi hasil kuis yang belum diketahui, lalu masuk **Tahap 4 — `src/pages/Products.tsx` dasar** (`useLoaderData`, array kosong, `.map()`). Jangan tulis solusi lengkap lebih dahulu.
+**Learning Mode:** Tahap 5 ditutup **berdasarkan permintaan eksplisit pengguna** (masih ada catatan recall Segmen 1). Lanjut **Tahap 6 — `src/features/products/ProductFilters.tsx`**: baca PDF lengkap bilingual; kerjakan kuis dan mini-task bertahap tentang `ProductFiltersProps`, destructuring, controlled `<select>`, callback `onChange`, kondisi missing option, dan tombol reset. Review jawaban pengguna sebelum mengubah status Tahap 6 menjadi lulus.
 
-**Development Mode — Fase 1 tetap IN PROGRESS:** lakukan review manual filter combinations, invalid query, empty state, refresh/back/forward, detail-back, lalu cek `npm run lint`/`npm run build` secara nyata sebelum PR/merge.
+**Development Mode — Fase 1 tetap IN PROGRESS:** review kombinasi filter, invalid query, empty state, URL refresh/back/forward, navigasi kembali dari detail; jalankan `npm run lint` dan `npm run build` di lingkungan yang sesuai sebelum PR/merge.
 
-**Sinkronisasi referensi:** ketika pengguna mengirim tautan repository/branch baru, gunakan referensi baru tersebut pada sesi itu dan sesi berikutnya, bukan HEAD/branch lama. Jika belum dikirim perubahan, gunakan `amri7x/e-commerce` branch `feature/searchParams` sebagai referensi terakhir yang diketahui. Perubahan yang hanya ada di laptop lokal tidak bisa dianggap terlihat di GitHub.
+**Sinkronisasi referensi:** branch `amri7x/e-commerce` `feature/searchParams` @ `380991d` menjadi referensi source terakhir yang diperiksa sebelum pembaruan roadmap ini; ketika pengguna memberi tautan baru, selalu gunakan referensi terbaru.
 
+
+### Session log — 2026-11-21 (Tahap 5 sign-off + PDF Tahap 6 + aturan bilingual)
+- Task / user request: tandai Tahap 5 selesai, perbarui roadmap dengan aturan PDF bilingual, lanjut Tahap 6 dalam bentuk PDF lengkap.
+- Branch / commit examined: `feature/searchParams` @ `380991d044c09ce4ad72a82d5328fbf08e52b9f2` (commit source sebelum update roadmap).
+- Files reviewed: `src/features/products/productFilters.ts`, `src/features/products/ProductFilters.tsx`, `src/pages/Products.tsx`, `docs/MORA_PROJECT_ROADMAP.md`.
+- Changes actually made: status belajar Tahap 3-6 dan protokol bilingual PDF diperbarui; source aplikasi tidak diubah.
+- Verification performed: review kode GitHub dan jawaban di chat. `npm run lint`, build, dan automated test belum dijalankan.
+- Syntax practiced and recall result: Tahap 5 Segmen 2 dan 3 lulus mini-task 5/5; Segmen 1 ada koreksi kecil yang belum dikirim ulang, tetapi pengguna meminta sign-off. Tahap 6 PDF disiapkan, belum ada jawaban.
+- Decisions / tradeoffs: terjemahan Inggris italic langsung di bawah teks Indonesia; bedakan sign-off belajar dari validasi produksi.
+- Outstanding bugs / limitations: catatan recall Segmen 1 (`.optional()`, `keyof`, null/undefined) dapat diulas lagi; tidak menghambat memulai Tahap 6.
+- Roadmap status changes: Tahap 5 `LEARNING COMPLETED — USER SIGN-OFF`; Tahap 6 `IN PROGRESS — MATERIAL PREPARED`; Fase 1 kode tetap IN PROGRESS.
+- NEXT ACTION (one small task): mini-task awal Tahap 6 tentang tipe props dan destructuring.
 
 ## 10. Change Log / Audit Trail
 
@@ -348,6 +372,7 @@ Sebuah fitur hanya **DONE/VERIFIED** bila:
 | 2026-11-18 | 1.0.0 | Roadmap awal dibuat dari diskusi, review kode GitHub (branch `feature/searchParams` ahead 3 dari `main`), `PROJECT_MAP.md`, `package.json`, dan tautan Figma mobile MORA. Pembelajaran terakhir membedah `productsLoader.ts` dan `productDetailLoader`. | Fase 1 masih IN PROGRESS. Tidak ada source code yang diubah / PR yang di-merge oleh pembuatan roadmap. |
 | 2026-11-19 | 1.0.1 | GitHub roadmap commit `0118e31` (berasal dari review commit sebelumnya `60363982`). Menambahkan status rinci Syntax Breakdown Tahap 1–8 serta session log. | Tahap 3 telah dijelaskan; pada versi ini kuis/mini-task masih pending. Fase 1 tetap IN PROGRESS. |
 | 2026-11-19 | 1.1.0 | Review GitHub `feature/searchParams` HEAD `0118e31` (ahead 7/behind 0), sinkronisasi roadmap 1.0.1, tambahkan protokol Live Review untuk mini-task dan aturan referensi repo dinamis. Catat percobaan mini-task Tahap 3 dan dua koreksi yang masih harus diperiksa. | Mini-task interaktif menjadi metode belajar default ketika didukung; **Tahap 3 belum dinyatakan selesai**; tidak ada commit, push, merge, build, lint, atau tes aplikasi dalam sesi ini. |
+| 2026-11-21 | 1.2.0 | Verifikasi source `380991d`, catat Tahap 4 lulus review 6/6, Tahap 5 user sign-off (Segmen 2 dan 3 lulus, Segmen 1 ada catatan), siapkan materi PDF Tahap 6; tambah aturan wajib PDF bilingual: Indonesia + terjemahan Inggris italic tepat di bawahnya. | Pembelajaran Tahap 5 ditutup berdasarkan instruksi pengguna; Tahap 6 dimulai. Fase 1 aplikasi masih IN PROGRESS; tidak menyatakan lint/build/test sukses. |
 
 ---
 
