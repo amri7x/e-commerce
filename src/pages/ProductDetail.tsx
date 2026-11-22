@@ -1,8 +1,8 @@
 import { useLoaderData, NavLink, useLocation } from "react-router"
-import { productDetailLoader } from "../loaders/productsLoader"
+import { detailProductLoader } from "../loaders/productsLoader"
 
 export const ProductDetail = () => {
-    const detail = useLoaderData<typeof productDetailLoader>()
+    const detail = useLoaderData<typeof detailProductLoader>()
     const location = useLocation()
 
     return(
