@@ -1,76 +1,78 @@
-import type { LoaderFunctionArgs } from 'react-router'
+import type { LoaderFunctionArgs } from "react-router"
 import {
-  productSchema,
-  productsResponseSchema,
-  type Product,
+  listProductsSchema,
+  detailProductSchema,
+  type DetailProduct
 } from '../features/products/productSchema'
 
 const API_URL = import.meta.env.VITE_API_URL
 
-const invalidApiResponse = () => new Response('Invalid product data received', {
+export const invalidApiData = () => new Response("Invalid data product recived", {
   status: 502,
-  statusText: 'Bad Gateway',
+  statusText: 'Bad Gateway'
 })
 
-const readJson = async (response: Response): Promise<unknown> => {
+export const readJson = async (
+  response: Response
+): Promise<unknown> => {
   try {
     return await response.json()
   } catch {
-    throw invalidApiResponse()
+    throw invalidApiData()
   }
 }
 
-export const productsLoader = async ({
-  request
-}: LoaderFunctionArgs): Promise<Product[]> => {
+export const listProductsLoader = async ({
+  request}: LoaderFunctionArgs
+): Promise<DetailProduct[]> => {
   const response = await fetch(`${API_URL}/?limit=0`, {
-    signal: request.signal,
+    signal: request.signal
   })
 
-  if (!response.ok) {
-    throw new Response('Failed to load products data', {
+  if (!response.ok){
+    throw new Response('Failed to load data product', {
       status: response.status,
-      statusText: response.statusText,
+      statusText: response.statusText
     })
   }
 
-  const result = productsResponseSchema.safeParse(await readJson(response))
+  const result = listProductsSchema.safeParse(await readJson(response))
 
-  if (!result.success) {
-    throw invalidApiResponse()
+  if (!result.success){
+    throw invalidApiData()
   }
-  
+
   return result.data.products
 }
 
-export const productDetailLoader = async ({
+export const detailProductLoader = async ({
   request,
-  params
-}: LoaderFunctionArgs): Promise<Product> => {
+  params}: LoaderFunctionArgs
+): Promise<DetailProduct> => {
   const { id } = params
 
-  if (!id) {
+  if (!id){
     throw new Response('Product id is required', {
       status: 400,
-      statusText: 'Bad Request',
+      statusText: 'Bad Request'
     })
   }
 
   const response = await fetch(`${API_URL}/${id}`, {
-    signal: request.signal,
+    signal: request.signal
   })
 
-  if (!response.ok) {
-    throw new Response('Product id not found', {
+  if (!response.ok){
+    throw new Response("Product is not found", {
       status: response.status,
-      statusText: response.statusText,
+      statusText: response.statusText
     })
   }
 
-  const result = productSchema.safeParse(await readJson(response))
+  const result = detailProductSchema.safeParse(await readJson(response))
 
-  if (!result.success) {
-    throw invalidApiResponse()
+  if (!result.success){
+    throw invalidApiData()
   }
 
   return result.data
