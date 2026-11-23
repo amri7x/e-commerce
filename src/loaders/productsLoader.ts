@@ -1,19 +1,79 @@
 import type { LoaderFunctionArgs } from "react-router"
-import type { Products } from "../types/products"
+import {
+  listProductsSchema,
+  detailProductSchema,
+  type DetailProduct
+} from '../features/products/productSchema'
 
 const API_URL = import.meta.env.VITE_API_URL
 
-export const productsLoader = async ({request}: LoaderFunctionArgs): Promise<Products[]> => {
-    const response = await fetch(API_URL, { signal: request.signal })
+export const invalidApiData = () => new Response("Invalid data product recived", {
+  status: 502,
+  statusText: 'Bad Gateway'
+})
 
-    if(!response.ok){
-        throw new Response("Failed to load products data", {
-            status: response.status,
-            statusText: response.statusText
-        })
-    }
+export const readJson = async (
+  response: Response
+): Promise<unknown> => {
+  try {
+    return await response.json()
+  } catch {
+    throw invalidApiData()
+  }
+}
 
-    const data = await response.json()
+export const listProductsLoader = async ({
+  request}: LoaderFunctionArgs
+): Promise<DetailProduct[]> => {
+  const response = await fetch(`${API_URL}/?limit=0`, {
+    signal: request.signal
+  })
 
-    return data.products as Products[]
+  if (!response.ok){
+    throw new Response('Failed to load data product', {
+      status: response.status,
+      statusText: response.statusText
+    })
+  }
+
+  const result = listProductsSchema.safeParse(await readJson(response))
+
+  if (!result.success){
+    throw invalidApiData()
+  }
+
+  return result.data.products
+}
+
+export const detailProductLoader = async ({
+  request,
+  params}: LoaderFunctionArgs
+): Promise<DetailProduct> => {
+  const { id } = params
+
+  if (!id){
+    throw new Response('Product id is required', {
+      status: 400,
+      statusText: 'Bad Request'
+    })
+  }
+
+  const response = await fetch(`${API_URL}/${id}`, {
+    signal: request.signal
+  })
+
+  if (!response.ok){
+    throw new Response("Product is not found", {
+      status: response.status,
+      statusText: response.statusText
+    })
+  }
+
+  const result = detailProductSchema.safeParse(await readJson(response))
+
+  if (!result.success){
+    throw invalidApiData()
+  }
+
+  return result.data
 }

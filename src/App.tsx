@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router"
 import { Layout } from "./components/Layout"
-import { productsLoader } from "./loaders/productsLoader"
+import { listProductsLoader, detailProductLoader } from "./loaders/productsLoader"
 import { ErrorBoundary } from "./components/ErrorBoundary"
 
 const router = createBrowserRouter([
@@ -17,11 +17,31 @@ const router = createBrowserRouter([
             },
             {
                 path: "products",
-                loader: productsLoader,
+                loader: listProductsLoader,
+                shouldRevalidate: ({
+                    currentUrl,
+                    nextUrl,
+                    defaultShouldRevalidate,
+                }) => {
+                    const onlySearchChanged =
+                        currentUrl.pathname === nextUrl.pathname &&
+                        currentUrl.search !== nextUrl.search
+
+                    return onlySearchChanged ? false : defaultShouldRevalidate
+                },
                 ErrorBoundary: ErrorBoundary,
                 lazy: async () => {
                     const { Products } = await import("./pages/Products")
                     return { Component: Products }
+                }
+            },
+            {
+                path: "products/:id",
+                loader: detailProductLoader,
+                ErrorBoundary: ErrorBoundary,
+                lazy: async () => {
+                    const { ProductDetail } = await import("./pages/ProductDetail")
+                    return { Component: ProductDetail }
                 }
             },
             {
