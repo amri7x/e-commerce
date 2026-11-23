@@ -3,21 +3,21 @@ import { NavLink, useLoaderData, useSearchParams } from 'react-router'
 import { ProductFilters } from '../features/products/ProductFilters'
 import {
   filterProducts,
-  getProductFilterOptions,
-  parseProductFilters,
+  getProductFilter,
+  ProductFilter,
   type ProductFilterName,
 } from '../features/products/productFilters'
-import { productsLoader } from '../loaders/productsLoader'
+import { listProductsLoader } from '../loaders/productsLoader'
 
 export const Products = () => {
-  const products = useLoaderData<typeof productsLoader>()
+  const products = useLoaderData<typeof listProductsLoader>()
   const [searchParams, setSearchParams] = useSearchParams()
   const filters = useMemo(
-    () => parseProductFilters(searchParams),
+    () => ProductFilter(searchParams),
     [searchParams],
   )
-  const { categories, brands } = useMemo(
-    () => getProductFilterOptions(products),
+  const { categories, brand } = useMemo(
+    () => getProductFilter(products),
     [products],
   )
   const visibleProducts = useMemo(
@@ -55,7 +55,7 @@ export const Products = () => {
     <main>
       <ProductFilters
         categories={categories}
-        brands={brands}
+        brands={brand}
         filters={filters}
         onChange={updateFilter}
         onReset={resetFilters}
