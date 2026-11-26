@@ -7,12 +7,12 @@
 | Metadata | Nilai |
 |---|---|
 | Nama proyek | MORA — DummyJSON E-commerce (frontend portfolio/capstone) |
-| Roadmap version | **1.2.0** |
-| Last verified | **2026-11-21** (GitHub branch `feature/searchParams` HEAD `380991d044c09ce4ad72a82d5328fbf08e52b9f2`; `productFilters.ts`, `ProductFilters.tsx`, dan `Products.tsx` diperiksa. **Lint/build/tests belum dijalankan**.) |
-| Last learning topic | **Tahap 5 — `productFilters.ts` dinyatakan selesai atas persetujuan pengguna (2026-11-21)**: Segmen 2 (kuis 4/4, mini-task 5/5) dan Segmen 3 (kuis 4/5, mini-task 5/5) telah direview; Segmen 1 memiliki catatan kecil `.optional()`, `keyof`, dan normalisasi nilai URL. **Tahap 6 `ProductFilters.tsx` dimulai: modul PDF lengkap bilingual disiapkan; kuis/mini-task belum dinilai.** |
+| Roadmap version | **1.2.1** |
+| Last verified | **2026-11-26** (GitHub default branch `main`; `docs/MORA_PROJECT_ROADMAP.md`, `src/features/products/ProductFilters.tsx`, dan `src/features/products/productFilters.ts` diperiksa. Working branch/HEAD fitur terbaru belum ditentukan dari tautan ini. **Lint/build/tests belum dijalankan**.) |
+| Last learning topic | **Tahap 6 — `ProductFilters.tsx` dinyatakan selesai atas persetujuan pengguna (2026-11-26)**: kuis mandiri 6/6 setelah klarifikasi callback `onChange` dan operator `??`; mini-task gabungan A/B/C dibuat dan direview manual melalui perbaikan terarah serta contoh kode lengkap. Penilaian adalah hasil belajar/review chat, bukan bukti compiler, lint, build, atau test. Tahap berikutnya: Tahap 7 integrasi `ProductFilters.tsx` ↔ `Products.tsx`. |
 | Status utama | **Fase 1: katalog + filter URL; belum merge; fitur detail masih minimal** |
 | GitHub repo | https://github.com/amri7x/e-commerce |
-| Current feature branch (verified) | `feature/searchParams`, HEAD `380991d044c09ce4ad72a82d5328fbf08e52b9f2` (pemeriksaan 2026-11-21; status ahead/behind **tidak dihitung ulang**). |
+| Current feature branch (verified) | `main` diperiksa 2026-11-26; URL yang diberikan menunjuk default branch `main`. Working branch/HEAD aktif pengguna belum dikonfirmasi dan status ahead/behind tidak dihitung ulang. |
 | Figma mobile design | https://www.figma.com/design/g7NRuCh1mApDRAn7kfLdf3 |
 | Library canonical path (jika berhasil disimpan) | `/Projects/MORA/MORA_PROJECT_ROADMAP.md` |
 | Target pekerjaan | Junior/Entry-level Frontend Web Developer remote internasional; bangun bukti kemampuan, bukan sekadar demo kosmetik |
@@ -116,8 +116,8 @@ src/
 | 3 | `src/App.tsx` — React Router route config, loader, `lazy`, `RouterProvider` | **[COMPLETED — USER-REPORTED]** | Pengguna menyatakan revisi dan hasil kuis Tahap 3 telah selesai (2026-11-19); rincian jawaban kuis dan hasil uji lokal tidak tersedia di sesi pembaruan ini. |
 | 4 | `src/pages/Products.tsx` — tahap dasar `useLoaderData`, render/map/empty state | **[REVIEWED / LEARNING COMPLETED]** | Revisi mini-task `Products.tsx` menerima penilaian mentor 6/6: useLoaderData, empty state, map/key, title, price, alt; penilaian statis, bukan lint/build/test. |
 | 5 | `src/features/products/productFilters.ts` — parse query, opsi, filter/sort | **[LEARNING COMPLETED — USER SIGN-OFF]** | Segmen 1 dibahas & mini-task dicoba (4/5, koreksi `.optional()` belum dikirim ulang); Segmen 2 kuis 4/4, mini-task 5/5; Segmen 3 kuis 4/5, mini-task 5/5. Pengguna meminta tandai selesai pada 2026-11-21. Sisa recall Segmen 1 menjadi catatan opsional; tidak dinyatakan semua kriteria tes lolos. |
-| 6 | `src/features/products/ProductFilters.tsx` — props, controlled inputs, callback | **[IN PROGRESS — MATERIAL PREPARED]** | Materi PDF lengkap bilingual Tahap 6 dibuat dari kode sumber branch terbaru; kuis dan mini-task belum dikerjakan/direview. |
-| 7 | `src/pages/Products.tsx` — integrasi `useSearchParams`, `useMemo` | **[PLANNED]** | Sambungkan UI dan logika filter. |
+| 6 | `src/features/products/ProductFilters.tsx` — props, controlled inputs, callback | **[LEARNING COMPLETED — USER SIGN-OFF + MANUAL REVIEW]** | Kuis mandiri 6/6 benar setelah klarifikasi ulang nomor 2 dan 3. Mini-task A/B/C digabung menjadi `BookFilters`; versi awal pengguna memiliki kesalahan tipe `currentGenre`, controlled value, active-filter detection, tombol Reset, dan missing option. Mentor memberi koreksi/hints lalu full example atas permintaan pengguna. Pengguna kemudian meminta tahap ditandai selesai. Ini sign-off pembelajaran, bukan verifikasi compiler/lint/build/test. |
+| 7 | `src/pages/Products.tsx` — integrasi `useSearchParams`, `useMemo` | **[PLANNED — NEXT LEARNING STAGE]** | Sambungkan UI `ProductFilters` dengan URL search params dan derivasi/filter data di parent. Verifikasi kecocokan nama props/tipe dengan kode `main` terbaru sebelum latihan. |
 | 8 | `src/App.tsx` — pendalaman `shouldRevalidate` | **[PLANNED]** | Bahas tradeoff refresh/revalidation dan edge cases, meskipun syntax dikenalkan pada Tahap 3. |
 
 **Konsep yang telah dibedah:**
@@ -344,14 +344,15 @@ Sebuah fitur hanya **DONE/VERIFIED** bila:
 - Roadmap status changes: **Tahap 3 tetap IN PROGRESS**; Fase 1 aplikasi tetap IN PROGRESS.
 - NEXT ACTION (one small task): koreksi mini-task route `/users` via Live Review, lalu bahas function reference vs call vs arrow function dan konfirmasi hasil kuis. Setelah itu Tahap 4 `Products.tsx` dasar.
 
-### NEXT ACTION — prioritas terdekat (2026-11-21)
+### NEXT ACTION — prioritas terdekat (2026-11-26)
 
-**Learning Mode:** Tahap 5 ditutup **berdasarkan permintaan eksplisit pengguna** (masih ada catatan recall Segmen 1). Lanjut **Tahap 6 — `src/features/products/ProductFilters.tsx`**: baca PDF lengkap bilingual; kerjakan kuis dan mini-task bertahap tentang `ProductFiltersProps`, destructuring, controlled `<select>`, callback `onChange`, kondisi missing option, dan tombol reset. Review jawaban pengguna sebelum mengubah status Tahap 6 menjadi lulus.
+**Learning Mode:** Tahap 6 `src/features/products/ProductFilters.tsx` dinyatakan **LEARNING COMPLETED — USER SIGN-OFF + MANUAL REVIEW**. Kuis mandiri 6/6; Mini-task A/B/C dikerjakan sebagai satu latihan `BookFilters`, direview dan dibahas, kemudian contoh lengkap diberikan atas permintaan pengguna. Catatan: pengguna belum menyerahkan ulang full code versi revisinya sendiri; sign-off ini mencatat penyelesaian belajar berdasarkan review dan contoh pembahasan, bukan bukti compiler/test.
+
+Lanjut **Tahap 7 — integrasi `ProductFilters.tsx` dengan `Products.tsx`**: verifikasi kontrak props aktual di `main`, telusuri `useSearchParams`, callback update/reset URL, dan `useMemo`; tetap gunakan pendekatan hint-first.
 
 **Development Mode — Fase 1 tetap IN PROGRESS:** review kombinasi filter, invalid query, empty state, URL refresh/back/forward, navigasi kembali dari detail; jalankan `npm run lint` dan `npm run build` di lingkungan yang sesuai sebelum PR/merge.
 
-**Sinkronisasi referensi:** branch `amri7x/e-commerce` `feature/searchParams` @ `380991d` menjadi referensi source terakhir yang diperiksa sebelum pembaruan roadmap ini; ketika pengguna memberi tautan baru, selalu gunakan referensi terbaru.
-
+**Sinkronisasi referensi:** pada 2026-11-26, link yang diberikan menunjuk `main`. Roadmap dan `ProductFilters.tsx` serta `productFilters.ts` pada `main` telah diperiksa. Tidak ada perubahan source aplikasi, commit, push, merge, lint, build, atau automated test yang dilakukan dalam sesi ini.
 
 ### Session log — 2026-11-21 (Tahap 5 sign-off + PDF Tahap 6 + aturan bilingual)
 - Task / user request: tandai Tahap 5 selesai, perbarui roadmap dengan aturan PDF bilingual, lanjut Tahap 6 dalam bentuk PDF lengkap.
@@ -365,6 +366,18 @@ Sebuah fitur hanya **DONE/VERIFIED** bila:
 - Roadmap status changes: Tahap 5 `LEARNING COMPLETED — USER SIGN-OFF`; Tahap 6 `IN PROGRESS — MATERIAL PREPARED`; Fase 1 kode tetap IN PROGRESS.
 - NEXT ACTION (one small task): mini-task awal Tahap 6 tentang tipe props dan destructuring.
 
+### Session log — 2026-11-26 (Tahap 6 sign-off + sinkronisasi main/Library)
+- Task / user request: tandai Tahap 6 selesai dan bandingkan/perbarui roadmap pada Library `/Projects/MORA/` dengan GitHub `main`.
+- Branch / commit examined: GitHub default branch `main` (repository metadata menyatakan default branch `main`); roadmap blob SHA `8960c2266aaa5c9d0f00702133cad85af7b9efb0`; source `ProductFilters.tsx` blob SHA `c444b0c779a3676b666462f4d17783fd9a9ca35f`. Tidak menetapkan working branch aktif karena tautan yang diberikan menunjuk `main`.
+- Files reviewed: Library `/Projects/MORA/MORA_PROJECT_ROADMAP.md` version 2; GitHub `docs/MORA_PROJECT_ROADMAP.md`; `src/features/products/ProductFilters.tsx`; `src/features/products/productFilters.ts`.
+- Changes actually made: roadmap disinkronkan ke v1.2.1; metadata, tahap 6, next action Tahap 7, session log, dan change log diperbarui. Source aplikasi tidak diubah.
+- Verification performed: manual review jawaban kuis dan mini-task dalam chat; pembacaan file GitHub dan Library. Kuis 6/6. Mini-task gabungan A/B/C dibahas; full example diberikan atas permintaan pengguna. **Lint/build/automated tests belum dijalankan**; tidak ada klaim compiler pass.
+- Syntax practiced and recall result: `import type`, callback signature `(name, value) => void`, `??` fallback, dynamic `.map()`, conditional rendering `&&`, controlled select, missing option, Boolean active state, `disabled`, `onClick` callback reference.
+- Decisions / tradeoffs: Tahap 6 ditutup sebagai penyelesaian pembelajaran berdasarkan persetujuan pengguna dan review mentor; tidak dinaikkan menjadi status implementasi source MORA. Karena pengguna meminta kode lengkap, mentor memberikan contoh gabungan `BookFilters`.
+- Outstanding bugs / limitations: pengguna belum mengirim ulang revisi `BookFilters` setelah menerima full example; contoh latihan tidak otomatis masuk source repo. Fase 1 quality gates dan backlog tetap terbuka.
+- Roadmap status changes: Tahap 6 `LEARNING COMPLETED — USER SIGN-OFF + MANUAL REVIEW`; Tahap 7 tetap `PLANNED` dan menjadi next learning stage; Fase 1 tetap `IN PROGRESS`.
+- NEXT ACTION (one small task): mulai Tahap 7 dengan tracing props `ProductFilters` pada source `main` dan alur `useSearchParams` di `Products.tsx`.
+
 ## 10. Change Log / Audit Trail
 
 | Tanggal | Versi | Aktivitas dan bukti | Dampak status |
@@ -373,6 +386,7 @@ Sebuah fitur hanya **DONE/VERIFIED** bila:
 | 2026-11-19 | 1.0.1 | GitHub roadmap commit `0118e31` (berasal dari review commit sebelumnya `60363982`). Menambahkan status rinci Syntax Breakdown Tahap 1–8 serta session log. | Tahap 3 telah dijelaskan; pada versi ini kuis/mini-task masih pending. Fase 1 tetap IN PROGRESS. |
 | 2026-11-19 | 1.1.0 | Review GitHub `feature/searchParams` HEAD `0118e31` (ahead 7/behind 0), sinkronisasi roadmap 1.0.1, tambahkan protokol Live Review untuk mini-task dan aturan referensi repo dinamis. Catat percobaan mini-task Tahap 3 dan dua koreksi yang masih harus diperiksa. | Mini-task interaktif menjadi metode belajar default ketika didukung; **Tahap 3 belum dinyatakan selesai**; tidak ada commit, push, merge, build, lint, atau tes aplikasi dalam sesi ini. |
 | 2026-11-21 | 1.2.0 | Verifikasi source `380991d`, catat Tahap 4 lulus review 6/6, Tahap 5 user sign-off (Segmen 2 dan 3 lulus, Segmen 1 ada catatan), siapkan materi PDF Tahap 6; tambah aturan wajib PDF bilingual: Indonesia + terjemahan Inggris italic tepat di bawahnya. | Pembelajaran Tahap 5 ditutup berdasarkan instruksi pengguna; Tahap 6 dimulai. Fase 1 aplikasi masih IN PROGRESS; tidak menyatakan lint/build/test sukses. |
+| 2026-11-26 | 1.2.1 | Bandingkan Library roadmap v1.2.0 dengan GitHub `main`; periksa `ProductFilters.tsx` dan `productFilters.ts`; catat kuis Tahap 6 6/6 serta mini-task A/B/C yang direview manual dan contoh lengkap yang diminta pengguna. | Tahap 6 ditutup sebagai **LEARNING COMPLETED — USER SIGN-OFF + MANUAL REVIEW**. Tahap 7 menjadi next learning stage. Fase 1 tetap IN PROGRESS; source MORA tidak diubah dan lint/build/tests tidak dijalankan. |
 
 ---
 
