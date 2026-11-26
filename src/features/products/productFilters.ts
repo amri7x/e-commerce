@@ -25,7 +25,7 @@ export const getProductFilter = (detailProduct: DetailProduct[]) => {
 
   return{
     categories: sortOption(detailProduct.map(product => product.category)),
-    brand: sortOption(detailProduct.flatMap(product => product.brand ? [product.brand] : []))
+    brands: sortOption(detailProduct.flatMap(product => product.brand ? [product.brand] : []))
   }
 }
 
