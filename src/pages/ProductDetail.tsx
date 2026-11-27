@@ -15,7 +15,8 @@ export const ProductDetail = () => {
                 >
                     Back to Products
             </NavLink>
-            <h1>{detail.title} </h1>
+            <img width="400px" src={detail.images[0]} />
+            <h1>{detail.title}</h1>
         </main>
     )
 }

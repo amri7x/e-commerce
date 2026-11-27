@@ -1,85 +1,87 @@
-import { useMemo } from 'react'
-import { NavLink, useLoaderData, useSearchParams } from 'react-router'
-import { ProductFilters } from '../features/products/ProductFilters'
+import { useMemo } from "react"
+import { useLoaderData, NavLink, useSearchParams } from "react-router"
+import { listProductsLoader } from "../loaders/productsLoader"
 import {
+  ProductFilter,
   filterProducts,
   getProductFilter,
-  ProductFilter,
-  type ProductFilterName,
-} from '../features/products/productFilters'
-import { listProductsLoader } from '../loaders/productsLoader'
+  type ProductFilterName
+} from "../features/products/productFilters"
+import { ProductFilters } from "../features/products/ProductFilters"
 
 export const Products = () => {
   const products = useLoaderData<typeof listProductsLoader>()
   const [searchParams, setSearchParams] = useSearchParams()
+
   const filters = useMemo(
-    () => ProductFilter(searchParams),
-    [searchParams],
+    ()=> ProductFilter(searchParams),
+    [searchParams]
   )
+
+  const filteredProduct = useMemo(
+    () =>  filterProducts(products, filters),
+    [products, filters]
+  )
+
   const { categories, brands } = useMemo(
     () => getProductFilter(products),
-    [products],
-  )
-  const visibleProducts = useMemo(
-    () => filterProducts(products, filters),
-    [filters, products],
+    [products]
   )
 
-  const updateFilter = (name: ProductFilterName, value: string) => {
+  const updateFilter = (name: ProductFilterName, values: string) => {
     const nextSearchParams = new URLSearchParams(searchParams)
 
-    if (value) {
-      nextSearchParams.set(name, value)
+    if(values){
+      nextSearchParams.set(name, values)
     } else {
       nextSearchParams.delete(name)
     }
 
-    setSearchParams(nextSearchParams, { preventScrollReset: true })
+    setSearchParams(nextSearchParams, {preventScrollReset: true})
   }
 
-  const resetFilters = () => {
+  const resetFilter = () => {
     const nextSearchParams = new URLSearchParams(searchParams)
 
     nextSearchParams.delete('category')
-    nextSearchParams.delete('brand')
+    nextSearchParams.delete('brands')
     nextSearchParams.delete('sort')
 
-    setSearchParams(nextSearchParams, { preventScrollReset: true })
+    setSearchParams(nextSearchParams, {preventScrollReset: true})
   }
 
-  if (products.length === 0) {
-    return <main><p>Data products not found</p></main>
-  }
-
-  return (
+  return(
     <main>
-      <ProductFilters
-        categories={categories}
-        brands={brands}
-        filters={filters}
-        onChange={updateFilter}
-        onReset={resetFilters}
-      />
-
-      {visibleProducts.length === 0 ? (
-        <p>No products match the selected filters.</p>
-      ) : (
-        <section className="grid grid-cols-1 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {visibleProducts.map((product) => (
-            <NavLink
-              to={{
-                pathname: `${product.id}`,
-                search: searchParams.toString()
-              }}
-              key={product.id}
+      <div>
+        <ProductFilters
+          filters={filters}
+          categories={categories}
+          brands={brands}
+          onChange={updateFilter}
+          onReset={resetFilter}
+        />
+      </div>
+      <section className="grid grid-cols-6">
+          {
+            filteredProduct.map(product => 
+              <NavLink
+                to={{
+                  pathname: `${product.id}`,
+                  search: searchParams.toString()
+                }}
               >
-              <img src={product.images[0]} alt={product.title} />
-              <p>{product.title}</p>
-              <p>{product.price}</p><span>{product.brand}</span>
-            </NavLink>
-          ))}
-        </section>
-      )}
+                <img
+                  src={product.images[0]}
+                />
+                <p>{product.title}</p>
+                <p>{product.category}</p>
+                <p>{product.brand}</p>
+                <p>{product.price}</p>
+              </NavLink>
+            )
+          }
+      </section>
     </main>
   )
+
 }

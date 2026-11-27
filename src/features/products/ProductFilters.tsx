@@ -82,9 +82,10 @@ export const ProductFilters = ({
         </label>
 
         <button
+          className="w-5"
           type="button"
           disabled={!isActiveFilter}
-          onReset={onReset}
+          onClick={onReset}
         >
           Reset Filters
         </button>
